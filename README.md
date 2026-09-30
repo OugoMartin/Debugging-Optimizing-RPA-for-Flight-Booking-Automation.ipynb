@@ -157,6 +157,48 @@ Run tests:
 python -m unittest discover -s tests
 ```
 
+## Architecture
+
+The automation is documented with a workflow diagram and design rationale in [docs/architecture.md](docs/architecture.md).
+
+```text
+Reservation input
+      ↓
+Validation & normalization
+      ↓
+PNR deduplication
+      ↓
+Status decision
+   ↙       ↘
+ Skip    Confirmation
+             ↓
+        Retry on transient failure
+             ↓
+        Metrics & logging
+```
+
+## Sample Data
+
+The repository includes [data/sample_reservations.csv](data/sample_reservations.csv), a synthetic dataset containing both valid bookings and controlled failure cases. This allows reviewers to see the kinds of malformed inputs the automation is designed to handle without using real passenger data.
+
+## Continuous Integration
+
+GitHub Actions runs the unit-test suite and a smoke test on Python 3.10, 3.11, 3.12, and 3.13 for pushes and pull requests targeting `main`.
+
+Workflow: `.github/workflows/tests.yml`
+
+## Reproducible Benchmark
+
+Run:
+
+```bash
+python scripts/benchmark.py
+```
+
+The benchmark generates 10,000 deterministic reservations and compares a deliberately naive duplicate-checking workflow with the optimized set-based implementation. It writes measured results to `benchmark_results.csv`.
+
+Benchmark percentages are intentionally **not hard-coded** into this README because runtime depends on the machine and Python version. This keeps performance claims reproducible and defensible.
+
 ## Portfolio Value
 
 This project is positioned as an automation-engineering case study rather than only a notebook exercise. It demonstrates how a Python automation can be redesigned for reliability, observability, maintainability, and testing.
