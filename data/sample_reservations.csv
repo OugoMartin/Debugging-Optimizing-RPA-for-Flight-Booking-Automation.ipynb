@@ -1,0 +1,11 @@
+PNR,Passenger,Origin,Destination,Fare,Status
+ABC123,Amina Kamau,JFK,LAX,245.50,Confirmed
+DEF456,James Otieno,LHR,DXB,$180.00,Pending
+GHI789,Grace Wanjiku,SIN,HND,210,Checked-in
+JKL012,Daniel Kimani,CDG,FRA,155,Canceled
+MNO345,Sarah Njeri,LAX,JFK,275,Confirmed
+BAD12,Invalid PNR,JFK,LAX,200,Confirmed
+PQR678,Invalid Route,JFK,JFK,190,Confirmed
+STU901,Invalid Fare,FRA,LHR,not-a-number,Pending
+VWX234,Invalid Airport,XXX,DXB,230,Confirmed
+ABC123,Duplicate Booking,JFK,LAX,245.50,Confirmed
